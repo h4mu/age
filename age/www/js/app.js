@@ -2,20 +2,24 @@ var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
 
 $(document).on("deviceready", function() {
+  console.log("deviceready");
   deviceReadyDeferred.resolve();
 });
 
 $(document).on("mobileinit", function () {
+  console.log("mobileinit");
   jqmReadyDeferred.resolve();
 });
 
 $.when(deviceReadyDeferred, jqmReadyDeferred).then(init);
 
 $(document).on("pagecreate",function(event){
+  console.log("pagecreate");
   init();
 });
 
 function init() {
+  console.log("init");
   updateAll();
   $("#monthList li a").click(function () {
     localStorage.month = $(this).parent().index();
@@ -34,6 +38,7 @@ function init() {
 }
 
 function updateAll() {
+  console.log("updateAll");
   updateResult();
   updateYears();
   updateMonths();
@@ -41,6 +46,7 @@ function updateAll() {
 }
 
 function updateResult() {
+  console.log("updateResult");
   $("#result").html(
     localStorage.year && localStorage.month && localStorage.day 
     ? moment().diff(moment([localStorage.year, localStorage.month, localStorage.day]), "days")
@@ -48,6 +54,7 @@ function updateResult() {
 }
 
 function updateDays() {
+  console.log("updateDays");
   if (localStorage.day) {
     $("#day").html(localStorage.day);
   }
@@ -71,6 +78,7 @@ function updateDays() {
 }
 
 function updateMonths() {
+  console.log("updateMonths");
   var currentLocaleData = moment.localeData("en");
   if (localStorage.month) {
     $("#month").html(currentLocaleData.months(moment([1,localStorage.month,1])));
@@ -84,6 +92,7 @@ function updateMonths() {
 }
 
 function updateYears(){
+  console.log("updateYears");
   if (localStorage.year) {
     $("#year").html(localStorage.year);
   }
